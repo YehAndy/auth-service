@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:7
+    container_name: my-redis
+    ports:
+      - "6379:6379"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+    env_file:
+      - .env
